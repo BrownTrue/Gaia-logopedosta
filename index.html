@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="it">
-  <head>
+<html lang="it" class="scroll-smooth">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gaia Troisi | Logopedista</title>
+    <meta name="description" content="Sito professionale della Logopedista Gaia Troisi. Servizi per l'età evolutiva, adulta e geriatrica ad Avezzano e Online.">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (Replacement for lucide-react) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configuration -->
     <script>
       tailwind.config = {
         theme: {
@@ -33,27 +43,627 @@
               turquoise: {
                 500: '#5F9EA0', // Desaturated Turquoise
               }
+            },
+            animation: {
+              'bounce-slow': 'bounce 3s infinite',
             }
           }
         }
       }
     </script>
     <style>
-      html { scroll-behavior: smooth; }
-      body { background-color: #F9F9F7; color: #2f463e; }
+        body { background-color: #F9F9F7; color: #2f463e; }
+        /* Hide scrollbar for modal but keep functionality */
+        .no-scroll { overflow: hidden; }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+    "react": "https://aistudiocdn.com/react@^19.2.0"
   }
 }
 </script>
 </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<body class="font-sans antialiased text-stone-800 bg-cream selection:bg-sage-200 selection:text-sage-900">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="font-heading text-2xl font-bold text-sage-800 tracking-tight">
+                    Gaia <span class="text-turquoise-500">Troisi</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#chi-sono" class="text-stone-600 hover:text-sage-600 font-medium transition-colors text-sm uppercase tracking-wider">Chi Sono</a>
+                    <a href="#servizi" class="text-stone-600 hover:text-sage-600 font-medium transition-colors text-sm uppercase tracking-wider">Servizi</a>
+                    <a href="#tariffe" class="text-stone-600 hover:text-sage-600 font-medium transition-colors text-sm uppercase tracking-wider">Tariffe</a>
+                    <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2Eg92Ya3cO1fI1suNxGh6RUDoJ2PlfzaUbAtPNQl40MDeWp-griy6G__H8vX3nFLx7EQAhM3NG" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-2 border border-sage-600 text-sage-600 rounded-full hover:bg-sage-600 hover:text-white transition-all duration-300 font-medium text-sm">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        Prenota
+                    </a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-sage-800 p-2" aria-label="Menu">
+                        <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-stone-100">
+            <div class="px-4 py-6 flex flex-col gap-4">
+                <a href="#chi-sono" class="mobile-link text-lg font-medium text-stone-700 hover:text-sage-600 border-b border-stone-100 pb-2">Chi Sono</a>
+                <a href="#servizi" class="mobile-link text-lg font-medium text-stone-700 hover:text-sage-600 border-b border-stone-100 pb-2">Servizi</a>
+                <a href="#tariffe" class="mobile-link text-lg font-medium text-stone-700 hover:text-sage-600 border-b border-stone-100 pb-2">Tariffe</a>
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2Eg92Ya3cO1fI1suNxGh6RUDoJ2PlfzaUbAtPNQl40MDeWp-griy6G__H8vX3nFLx7EQAhM3NG" target="_blank" rel="noopener noreferrer" class="mt-2 flex justify-center items-center gap-2 px-5 py-3 bg-sage-600 text-white rounded-lg font-medium">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    Prenota Online
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative min-h-screen flex items-center pt-20 bg-gradient-to-b from-sage-50 via-white to-stone-50 overflow-hidden">
+            <!-- Blobs -->
+            <div class="absolute top-20 -right-20 w-96 h-96 bg-turquoise-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 -left-20 w-80 h-80 bg-sage-300/20 rounded-full blur-3xl"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                    <!-- Content -->
+                    <div class="flex-1 text-center md:text-left space-y-8">
+                        <div class="inline-block px-4 py-1 bg-sage-100 rounded-full text-sage-700 text-xs font-bold tracking-widest uppercase mb-2">
+                            Logopedista
+                        </div>
+                        <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-sage-900 leading-[1.15]">
+                            Logopedia e Riabilitazione per <span class="text-turquoise-500 italic relative inline-block">
+                                ogni fase 
+                                <svg class="absolute w-full h-3 -bottom-1 left-0 text-turquoise-500/30" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="3" fill="none" />
+                                </svg>
+                            </span> della vita
+                        </h1>
+                        <p class="font-sans text-lg md:text-xl text-stone-600 max-w-2xl mx-auto md:mx-0 leading-relaxed">
+                            Percorsi personalizzati per l'età evolutiva, adulta e geriatrica. 
+                            Ricevo ad <strong>Avezzano</strong> e Online con un approccio empatico e scientifico.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
+                            <a href="https://wa.me/393899557253?text=Salve%20Dott.ssa%20Troisi,%20vorrei%20informazioni%20per%20una%20visita." target="_blank" class="w-full sm:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-bold shadow-lg shadow-green-600/20 hover:bg-[#20bd5a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                Scrivimi su WhatsApp
+                            </a>
+                            <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2Eg92Ya3cO1fI1suNxGh6RUDoJ2PlfzaUbAtPNQl40MDeWp-griy6G__H8vX3nFLx7EQAhM3NG" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-white border-2 border-sage-200 text-sage-700 rounded-full font-semibold hover:border-sage-400 hover:bg-sage-50 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i data-lucide="calendar" class="w-5 h-5"></i>
+                                Prenota Online
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="flex-1 w-full max-w-md md:max-w-full relative">
+                        <div class="relative aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white group">
+                            <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Bambino che impara - Logopedia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-sage-900/10 to-transparent"></div>
+                        </div>
+                        <!-- Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border-l-4 border-turquoise-500 hidden md:block animate-bounce-slow">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sage-100 rounded-full flex items-center justify-center text-sage-600">
+                                    <i data-lucide="heart" class="w-5 h-5 text-sage-500 fill-current"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-stone-500 uppercase font-bold">Approccio</p>
+                                    <p class="text-sm font-bold text-sage-800">Empatico</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="servizi" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-sage-50/50 scroll-mt-28">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-sage-800 mb-4">Ambiti di Intervento</h2>
+                <p className="text-stone-600 max-w-2xl mx-auto">
+                    Il piano terapeutico viene studiato su misura per le esigenze del paziente, che sia un bambino in fase di sviluppo o un adulto che necessita di riabilitazione.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Child Card -->
+                <div class="bg-white rounded-3xl p-8 shadow-xl shadow-sage-200/50 border border-sage-100 hover:border-turquoise-500/30 transition-all duration-300 group">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-turquoise-500/10 rounded-2xl flex items-center justify-center text-turquoise-500 group-hover:bg-turquoise-500 group-hover:text-white transition-colors">
+                            <i data-lucide="baby" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-stone-800">Età Evolutiva</h3>
+                    </div>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="message-square" class="w-5 h-5 text-turquoise-500 mt-1 shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-stone-700 block">Linguaggio</span>
+                                <span class="text-stone-500 text-sm">Ritardi di linguaggio, DSL (Disturbi Specifici), disfluenze.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="book-open" class="w-5 h-5 text-turquoise-500 mt-1 shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-stone-700 block">Apprendimento</span>
+                                <span class="text-stone-500 text-sm">DSA, Dislessia, Disortografia, Disgrafia, Discalculia.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="smile" class="w-5 h-5 text-turquoise-500 mt-1 shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-stone-700 block">Neurosviluppo</span>
+                                <span class="text-stone-500 text-sm">Autismo, disabilità intellettive e sindromi genetiche.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Adult Card -->
+                <div class="bg-white rounded-3xl p-8 shadow-xl shadow-sage-200/50 border border-sage-100 hover:border-sage-500/30 transition-all duration-300 group">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-sage-500/10 rounded-2xl flex items-center justify-center text-sage-600 group-hover:bg-sage-600 group-hover:text-white transition-colors">
+                            <i data-lucide="brain" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-stone-800">Età Adulta e Geriatrica</h3>
+                    </div>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="mic" class="w-5 h-5 text-sage-500 mt-1 shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-stone-700 block">Voce</span>
+                                <span class="text-stone-500 text-sm">Disfonia organica e funzionale, rieducazione post-chirurgica.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="activity" class="w-5 h-5 text-sage-500 mt-1 shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-stone-700 block">Neurologia</span>
+                                <span class="text-stone-500 text-sm">Afasia post-ictus, Parkinson, SLA, Sclerosi Multipla, Disartria.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-5 h-5 rounded-full border-2 border-sage-500 mt-1 shrink-0 flex items-center justify-center">
+                                <div class="w-2 h-2 bg-sage-500 rounded-full"></div>
+                            </div>
+                            <div>
+                                <span class="font-bold text-stone-700 block">Deglutizione</span>
+                                <span class="text-stone-500 text-sm">Disfagia e squilibri muscolari orofacciali (SMOF).</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- NOVAFON -->
+            <div class="mt-16 max-w-4xl mx-auto">
+                <div class="bg-sage-50 rounded-2xl p-8 border border-sage-200 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+                    <div class="bg-white p-4 rounded-full shadow-md shrink-0">
+                        <i data-lucide="activity" class="w-8 h-8 text-turquoise-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-xl font-bold text-sage-800 mb-2">Utilizzo del dispositivo NOVAFON</h3>
+                        <p class="text-stone-600 leading-relaxed">
+                            Integro la terapia logopedica con il dispositivo medico <strong>NOVAFON</strong>, 
+                            che utilizza la terapia a vibrazione locale (onde sonore) per trattare disturbi della voce, 
+                            della deglutizione e tensioni muscolari in modo non invasivo, profondo ed efficace.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="chi-sono" class="py-20 px-4 sm:px-6 lg:px-8 bg-white scroll-mt-28">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="w-full md:w-1/3">
+                        <div class="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg rotate-2 hover:rotate-0 transition-transform duration-500 bg-stone-100 border-4 border-white ring-1 ring-stone-100">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dott.ssa Gaia Troisi" class="w-full h-full object-cover object-top">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-6">
+                        <h2 class="font-heading text-3xl font-bold text-sage-800">Chi Sono</h2>
+                        <h3 class="font-sans text-xl text-turquoise-500 font-medium">Dott.ssa Gaia Troisi - Logopedista</h3>
+                        <div class="w-20 h-1 bg-sage-200"></div>
+                        
+                        <p class="text-stone-600 leading-relaxed">
+                            Laureata in Logopedia presso l'Università degli Studi dell'Aquila, ho dedicato la mia formazione e la mia carriera alla comprensione e alla cura dei disturbi comunicativi e deglutitori. 
+                        </p>
+                        <p class="text-stone-600 leading-relaxed">
+                            Il mio approccio integra competenze tecniche aggiornate con una profonda componente empatica: credo che ogni paziente, dal bambino all'anziano, necessiti di essere ascoltato prima di essere trattato.
+                        </p>
+                        <p class="text-stone-600 leading-relaxed">
+                            Mi occupo prevalentemente di <strong>disturbi neurogenici</strong> e problematiche dell'<strong>età evolutiva</strong>, collaborando spesso con neuropsichiatri, psicologi e insegnanti per creare una rete di supporto efficace intorno alla persona.
+                        </p>
+                        
+                        <div class="pt-4">
+                            <a href="https://wa.me/393899557253" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-sage-600 text-base font-medium rounded-md text-sage-700 bg-white hover:bg-sage-50 transition-colors">
+                                Contattami per un colloquio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="tariffe" class="py-20 px-4 sm:px-6 lg:px-8 bg-stone-50 scroll-mt-28">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-sage-800 mb-4">Servizi e Tariffe</h2>
+                    <p className="text-stone-600 max-w-2xl mx-auto">
+                        Trasparenza e flessibilità per ogni esigenza. Scegli la modalità più adatta a te.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6 lg:gap-8 items-start">
+                    
+                    <!-- Colonna 1: Singole Prestazioni -->
+                    <div class="bg-white rounded-2xl shadow-lg shadow-sage-100 border border-sage-100 overflow-hidden md:col-span-2">
+                        <div class="p-6 bg-sage-50/50 border-b border-sage-100">
+                            <h3 class="font-heading text-xl font-bold text-sage-800 flex items-center gap-2">
+                                <i data-lucide="clock" class="w-5 h-5 text-sage-600"></i>
+                                Singole Sedute
+                            </h3>
+                        </div>
+                        <div class="divide-y divide-stone-100">
+                            <!-- Item 1 -->
+                            <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-stone-50 transition-colors">
+                                <div class="space-y-1">
+                                    <div class="font-bold text-stone-700 flex items-center gap-2">
+                                        Prima Visita in Studio
+                                        <span class="text-xs font-normal px-2 py-0.5 bg-sage-100 text-sage-700 rounded-full flex items-center gap-1">
+                                            <i data-lucide="map-pin" class="w-3 h-3"></i> Avezzano
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-stone-500">Valutazione logopedica completa.</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-xl text-sage-700">50 €</div>
+                                    <div class="text-xs text-stone-400">45 min</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-stone-50 transition-colors">
+                                <div class="space-y-1">
+                                    <div class="font-bold text-stone-700 flex items-center gap-2">
+                                        Prima Visita a Domicilio
+                                        <span class="text-xs font-normal px-2 py-0.5 bg-orange-50 text-orange-700 rounded-full flex items-center gap-1">
+                                            <i data-lucide="home" class="w-3 h-3"></i> Avezzano
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-stone-500">Comodamente a casa tua (solo territorio di Avezzano).</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-xl text-sage-700">50 €</div>
+                                    <div class="text-xs text-stone-400">45 min</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-stone-50 transition-colors">
+                                <div class="space-y-1">
+                                    <div class="font-bold text-stone-700 flex items-center gap-2">
+                                        Prima Visita Online
+                                        <span class="text-xs font-normal px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full flex items-center gap-1">
+                                            <i data-lucide="monitor" class="w-3 h-3"></i> Remoto
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-stone-500">Valutazione tramite videochiamata sicura.</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-xl text-sage-700">50 €</div>
+                                    <div class="text-xs text-stone-400">45 min</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 4 - Successiva -->
+                            <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-sage-50/30">
+                                <div class="space-y-1">
+                                    <div class="font-bold text-stone-800">Visita Successiva</div>
+                                    <p class="text-sm text-stone-500">Seduta di terapia riabilitativa standard.</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-xl text-turquoise-600">35 €</div>
+                                    <div class="text-xs text-stone-400">45 min</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colonna 2: Pacchetto Speciale -->
+                    <div class="bg-sage-600 rounded-2xl shadow-xl text-white overflow-hidden transform md:-translate-y-4 relative">
+                        <!-- Badge -->
+                        <div class="absolute top-4 right-4">
+                            <i data-lucide="sparkles" class="text-yellow-300 animate-pulse w-6 h-6"></i>
+                        </div>
+
+                        <div class="p-8">
+                            <h3 class="font-heading text-2xl font-bold mb-2">Pacchetto Base</h3>
+                            <p class="text-sage-100 text-sm mb-6">Il percorso ideale per iniziare la riabilitazione con continuità.</p>
+                            
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-5xl font-bold tracking-tight">160</span>
+                                <span class="text-2xl">€</span>
+                            </div>
+                            <p class="text-sage-200 text-sm mb-8 line-through opacity-70">Valore reale: 190 €</p>
+
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center gap-3">
+                                    <div class="p-1.5 bg-white/20 rounded-full">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-white"></i>
+                                    </div>
+                                    <span class="font-medium">1ª Valutazione Completa</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="p-1.5 bg-white/20 rounded-full">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-white"></i>
+                                    </div>
+                                    <span class="font-medium">4 Sedute di Terapia</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="p-1.5 bg-white/20 rounded-full">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-white"></i>
+                                    </div>
+                                    <span class="text-sage-100 text-sm">Risparmi 30€ sul totale</span>
+                                </div>
+                            </div>
+
+                            <a href="https://wa.me/393899557253?text=Salve%20Dott.ssa%20Troisi,%20vorrei%20informazioni%20per%20una%20visita." target="_blank" class="block w-full py-3.5 text-center bg-white text-sage-700 rounded-xl font-bold hover:bg-sage-50 transition-colors shadow-lg">
+                                Richiedi Pacchetto
+                            </a>
+                        </div>
+                        <div class="bg-sage-700 p-4 text-center text-xs text-sage-200">
+                            Disponibile per Studio e Online
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Nota a piè di pagina -->
+                <div class="mt-12 text-center">
+                    <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2Eg92Ya3cO1fI1suNxGh6RUDoJ2PlfzaUbAtPNQl40MDeWp-griy6G__H8vX3nFLx7EQAhM3NG" target="_blank" class="inline-flex items-center gap-2 text-sage-600 hover:text-sage-800 font-medium border-b border-sage-300 hover:border-sage-600 transition-colors pb-0.5">
+                        Prenota subito la tua prima visita sul Calendario
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-sage-800 text-sage-100 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
+            <!-- Brand -->
+            <div class="space-y-4">
+                <h3 class="font-heading text-2xl font-bold text-white">Gaia Troisi</h3>
+                <p class="text-sage-200 text-sm leading-relaxed">
+                    Logopedista specializzata in età evolutiva, adulta e geriatrica. 
+                    Riabilitazione del linguaggio, della voce e della deglutizione con passione e professionalità.
+                </p>
+                <div class="flex gap-4 pt-2">
+                    <a href="https://www.instagram.com/logopedistaavezzano/?igsh=Mzc4czR6cnZxZTR4#" target="_blank" class="bg-sage-700 p-2 rounded-full hover:bg-sage-600 transition-colors hover:text-white text-sage-200" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contacts -->
+            <div class="space-y-4">
+                <h4 class="font-heading text-lg font-bold text-white">Contatti</h4>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="phone" class="w-4 h-4 text-turquoise-500"></i>
+                        <a href="tel:+393899557253" class="hover:text-white transition-colors">389 955 7253</a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="mail" class="w-4 h-4 text-turquoise-500"></i>
+                        <a href="mailto:troisigaia83@gmail.com" class="hover:text-white transition-colors">troisigaia83@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-turquoise-500 mt-1"></i>
+                        <span>Avezzano (AQ) & Online</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="space-y-4">
+                <h4 class="font-heading text-lg font-bold text-white">Info Legali</h4>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li>P.IVA: 02173390663</li>
+                    <li>
+                        <button id="privacy-trigger" class="hover:text-white underline decoration-sage-500 underline-offset-4 transition-colors text-left">
+                            Privacy Policy
+                        </button>
+                    </li>
+                    <li class="pt-8 text-xs text-sage-500">
+                        &copy; <script>document.write(new Date().getFullYear())</script> Gaia Troisi. Tutti i diritti riservati.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/393899557253?text=Salve%20Dott.ssa%20Troisi,%20vorrei%20informazioni%20per%20una%20visita." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 group flex items-center gap-2" aria-label="Chatta su WhatsApp">
+        <i data-lucide="message-circle" class="w-7 h-7 fill-white text-white"></i>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out whitespace-nowrap font-medium pr-1">
+            Scrivimi
+        </span>
+    </a>
+
+    <!-- PRIVACY MODAL -->
+    <div id="privacy-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300" role="dialog" aria-modal="true">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col relative transform scale-95 transition-transform duration-300" id="privacy-content">
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-stone-100 flex justify-between items-center bg-sage-50">
+                <h3 class="font-heading text-xl font-semibold text-sage-800">Privacy Policy</h3>
+                <button id="privacy-close-x" class="p-2 rounded-full hover:bg-sage-200 text-sage-700 transition-colors" aria-label="Chiudi">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 overflow-y-auto text-stone-600 text-sm leading-relaxed whitespace-pre-wrap font-sans">
+Ultimo aggiornamento: 01/08/2024
+La presente informativa sulla privacy descrive come raccogliamo, utilizziamo e proteggiamo i dati personali degli utenti del nostro sito web "gaiatroisi.it" (di seguito "Sito"). Il Titolare del trattamento dei dati è Gaia Troisi.
+
+1. Tipologia di Dati Raccolti
+Raccogliamo diverse tipologie di dati personali che possono includere:
+Dati identificativi: nome, cognome, indirizzo email.
+Dati aggiuntivi: informazioni fornite volontariamente dall'utente tramite moduli di contatto o iscrizione.
+
+2. Finalità del Trattamento
+I dati raccolti vengono trattati per le seguenti finalità:
+Fornire i servizi richiesti: come l'invio di newsletter o la risposta a richieste.
+Adempiere a obblighi legali: conservare i dati per scopi contabili e fiscali.
+
+3. Base Giuridica del Trattamento
+Il trattamento si basa su: Consenso, Esecuzione di un contratto, Obblighi legali.
+
+4. Modalità del Trattamento
+I dati vengono trattati con strumenti elettronici e misure di sicurezza adeguate.
+
+5. Condivisione dei Dati
+I dati possono essere condivisi con fornitori di servizi terzi (hosting) e autorità pubbliche se richiesto.
+
+6. Periodo di Conservazione
+I dati personali verranno conservati per il tempo strettamente necessario.
+
+7. Diritti degli Utenti
+Gli utenti hanno diritto di accedere, rettificare, cancellare i dati o opporsi al trattamento. Per esercitare questi diritti: troisigaia83@gmail.com.
+
+8. Modifiche
+Ci riserviamo il diritto di modificare questa informativa.
+
+9. Contatti
+Email: troisigaia83@gmail.com | Telefono: +39 389 9557253
+            </div>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 border-t border-stone-100 bg-stone-50 text-right">
+                <button id="privacy-close-btn" class="px-6 py-2 bg-sage-600 text-white rounded-lg hover:bg-sage-700 transition-colors font-medium text-sm">
+                    Chiudi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // --- NAVBAR SCROLL EFFECT ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+                navbar.classList.remove('bg-transparent', 'py-5');
+            } else {
+                navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+                navbar.classList.add('bg-transparent', 'py-5');
+            }
+        });
+
+        // --- MOBILE MENU ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                // Small delay to allow display:block to apply before opacity transition
+                setTimeout(() => {
+                    mobileMenu.classList.add('opacity-100', 'max-h-96');
+                    mobileMenu.classList.remove('opacity-0', 'max-h-0');
+                }, 10);
+            } else {
+                mobileMenu.classList.remove('opacity-100', 'max-h-96');
+                mobileMenu.classList.add('opacity-0', 'max-h-0');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+        // --- PRIVACY MODAL ---
+        const privacyTrigger = document.getElementById('privacy-trigger');
+        const privacyModal = document.getElementById('privacy-modal');
+        const privacyContent = document.getElementById('privacy-content');
+        const privacyCloseX = document.getElementById('privacy-close-x');
+        const privacyCloseBtn = document.getElementById('privacy-close-btn');
+
+        function openPrivacy() {
+            privacyModal.classList.remove('hidden');
+            // Trigger animation
+            setTimeout(() => {
+                privacyModal.classList.remove('opacity-0');
+                privacyContent.classList.remove('scale-95');
+                privacyContent.classList.add('scale-100');
+            }, 10);
+            document.body.classList.add('no-scroll');
+        }
+
+        function closePrivacy() {
+            privacyModal.classList.add('opacity-0');
+            privacyContent.classList.remove('scale-100');
+            privacyContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                privacyModal.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+            }, 300);
+        }
+
+        privacyTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPrivacy();
+        });
+
+        privacyCloseX.addEventListener('click', closePrivacy);
+        privacyCloseBtn.addEventListener('click', closePrivacy);
+
+        // Close on click outside
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) {
+                closePrivacy();
+            }
+        });
+    </script>
+</body>
 </html>
