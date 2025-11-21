@@ -168,7 +168,7 @@
         <section id="servizi" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-sage-50/50 scroll-mt-28">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-3xl md:text-4xl font-bold text-sage-800 mb-4">Ambiti di Intervento</h2>
-                <p className="text-stone-600 max-w-2xl mx-auto">
+                <p class="text-stone-600 max-w-2xl mx-auto">
                     Il piano terapeutico viene studiato su misura per le esigenze del paziente, che sia un bambino in fase di sviluppo o un adulto che necessita di riabilitazione.
                 </p>
             </div>
@@ -269,8 +269,9 @@
                 <div class="flex flex-col md:flex-row items-center gap-12">
                     <div class="w-full md:w-1/3">
                         <div class="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg rotate-2 hover:rotate-0 transition-transform duration-500 bg-stone-100 border-4 border-white ring-1 ring-stone-100">
-                            <!-- FOTO PERSONALE: Assicurati che il file si chiami 'foto-gaia.jpg' e sia nella stessa cartella -->
-                            <img src="./foto-gaia.jpg" alt="Dott.ssa Gaia Troisi" class="w-full h-full object-cover object-top" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                            <!-- FOTO PERSONALE -->
+                            <!-- NOTA: Lo script a fondo pagina gestisce l'errore se la foto non si trova -->
+                            <img id="profile-image" src="foto-gaia.jpg" alt="Dott.ssa Gaia Troisi" class="w-full h-full object-cover object-top">
                         </div>
                     </div>
                     <div class="w-full md:w-2/3 space-y-6">
@@ -303,7 +304,7 @@
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
                     <h2 class="font-heading text-3xl md:text-4xl font-bold text-sage-800 mb-4">Servizi e Tariffe</h2>
-                    <p className="text-stone-600 max-w-2xl mx-auto">
+                    <p class="text-stone-600 max-w-2xl mx-auto">
                         Trasparenza e flessibilità per ogni esigenza. Scegli la modalità più adatta a te.
                     </p>
                 </div>
@@ -655,6 +656,32 @@ Email: troisigaia83@gmail.com | Telefono: +39 389 9557253
                 closePrivacy();
             }
         });
+
+        // --- PROFILE IMAGE ERROR HANDLING ---
+        // Se l'immagine del profilo non viene trovata, mostra un box di errore utile
+        const profileImage = document.getElementById('profile-image');
+        if (profileImage) {
+            profileImage.addEventListener('error', function() {
+                this.style.display = 'none'; // Nasconde l'icona standard dell'immagine rotta
+                
+                // Crea un elemento div con il messaggio di errore
+                const errorMsg = document.createElement('div');
+                errorMsg.className = "w-full h-full flex flex-col items-center justify-center bg-stone-100 text-stone-500 p-4 text-center border-2 border-dashed border-stone-300";
+                errorMsg.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400 mb-2"><line x1="2" x2="22" y1="2" y2="22"/><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"/><line x1="13.5" x2="6" y1="13.5" y2="21"/><line x1="18" x2="21" y1="12" y2="15"/><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.05-.22 1.41-.59"/><path d="M21 15v-2a2 2 0 0 0-2-2H9"/></svg>
+                    <p class="font-bold text-stone-700 text-sm mb-1">Foto non trovata</p>
+                    <div class="bg-white p-2 rounded border border-stone-200 text-xs text-left w-full shadow-sm">
+                        <strong>Istruzioni:</strong><br>
+                        1. Rinomina la tua foto esattamente in: <br>
+                        <code class="text-sage-600 font-bold bg-stone-100 px-1 rounded">foto-gaia.jpg</code><br>
+                        2. Assicurati che sia nella stessa cartella di questo file.
+                    </div>
+                `;
+                
+                // Inserisce il messaggio al posto dell'immagine
+                this.parentElement.appendChild(errorMsg);
+            });
+        }
     </script>
 </body>
 </html>
